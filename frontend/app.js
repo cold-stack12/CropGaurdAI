@@ -120,12 +120,33 @@ let pageHistory = ['dashboard'];
 
 // ---- Init ----
 window.addEventListener('DOMContentLoaded', () => {
+  const hasVisited = localStorage.getItem('cropguard_welcomed');
+
   setTimeout(() => {
     document.getElementById('splash-loader').classList.add('hidden');
-    document.getElementById('app').style.display = 'flex';
-    initApp();
+
+    if (hasVisited) {
+      // Returning user — go straight to app
+      document.getElementById('app').style.display = 'flex';
+      initApp();
+    } else {
+      // First visit — show welcome page
+      document.getElementById('welcome-page').style.display = 'flex';
+    }
   }, 1800);
 });
+
+function dismissWelcome() {
+  localStorage.setItem('cropguard_welcomed', '1');
+  const welcomePage = document.getElementById('welcome-page');
+  welcomePage.classList.add('exit');
+
+  setTimeout(() => {
+    welcomePage.style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    initApp();
+  }, 600);
+}
 
 function initApp() {
   applyTranslations();

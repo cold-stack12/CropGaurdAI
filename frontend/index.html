@@ -23,6 +23,50 @@
         </div>
     </div>
 
+    <!-- Welcome / Onboarding Page -->
+    <div id="welcome-page" class="welcome-page" style="display:none;">
+        <div class="welcome-bg">
+            <div class="welcome-particle wp1">🌿</div>
+            <div class="welcome-particle wp2">🌾</div>
+            <div class="welcome-particle wp3">🍃</div>
+            <div class="welcome-particle wp4">🌱</div>
+            <div class="welcome-particle wp5">☀️</div>
+            <div class="welcome-particle wp6">💧</div>
+        </div>
+        <div class="welcome-content">
+            <div class="welcome-hero animate-in" style="--delay:0">
+                <div class="welcome-logo-icon">🌱</div>
+                <h1 class="welcome-title">CropGuard<span class="welcome-ai">AI</span></h1>
+                <p class="welcome-tagline">Your AI-Powered Farm Assistant</p>
+            </div>
+            <p class="welcome-description animate-in" style="--delay:1">
+                Protect your crops with cutting-edge AI disease detection. Get instant diagnoses, treatment plans, and expert advice — all in your local language.
+            </p>
+            <div class="welcome-features animate-in" style="--delay:2">
+                <div class="welcome-feature-card">
+                    <span class="welcome-feature-icon">🔬</span>
+                    <h3>AI Detection</h3>
+                    <p>Snap a photo to instantly identify diseases & pests</p>
+                </div>
+                <div class="welcome-feature-card">
+                    <span class="welcome-feature-icon">🗣️</span>
+                    <h3>Local Languages</h3>
+                    <p>Get results in English, Yorùbá, Igbo, Hausa & Pidgin</p>
+                </div>
+                <div class="welcome-feature-card">
+                    <span class="welcome-feature-icon">📡</span>
+                    <h3>Works Offline</h3>
+                    <p>Full offline support — no internet required on the field</p>
+                </div>
+            </div>
+            <button class="welcome-cta animate-in" style="--delay:3" id="getStartedBtn" onclick="dismissWelcome()">
+                <span>Get Started</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="welcome-footer animate-in" style="--delay:4">🇳🇬 Built for Nigerian Farmers</p>
+        </div>
+    </div>
+
     <!-- App Shell -->
     <div id="app" class="app" style="display:none;">
         <!-- Header / Navbar -->

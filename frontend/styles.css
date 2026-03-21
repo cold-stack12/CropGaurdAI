@@ -285,8 +285,8 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
-  padding: var(--space-lg) var(--space-md);
-  margin-top: -24px;
+  padding: var(--space-xl) var(--space-md) var(--space-lg);
+  margin-top: var(--space-md);
   position: relative; z-index: 2;
 }
 .feature-card {
@@ -818,4 +818,173 @@ body {
 @media (min-width: 401px) and (max-width: 520px) {
   .feature-card-body h4 { font-size: 0.78rem; }
   .feature-card-body p { font-size: 0.7rem; }
+}
+
+/* ============================================
+   Welcome / Onboarding Page
+   ============================================ */
+.welcome-page {
+  position: fixed; inset: 0;
+  background: linear-gradient(160deg, #1B4332 0%, #2D6A4F 35%, #37844C 65%, #3E9B55 100%);
+  z-index: 9998;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.welcome-page.exit {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+/* Floating particles */
+.welcome-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.welcome-particle {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0.08;
+  animation: welcomeFloat 12s infinite ease-in-out;
+}
+.wp1 { top: 8%; left: 8%; animation-duration: 10s; }
+.wp2 { top: 15%; right: 12%; animation-delay: 2s; animation-duration: 14s; }
+.wp3 { bottom: 25%; left: 15%; animation-delay: 4s; animation-duration: 11s; }
+.wp4 { bottom: 12%; right: 8%; animation-delay: 1s; animation-duration: 13s; }
+.wp5 { top: 45%; left: 5%; animation-delay: 3s; animation-duration: 15s; font-size: 1.4rem; }
+.wp6 { top: 35%; right: 6%; animation-delay: 5s; animation-duration: 12s; font-size: 1.4rem; }
+@keyframes welcomeFloat {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+  50% { transform: translateY(5px) translateX(-8px) rotate(-3deg); }
+  75% { transform: translateY(-12px) translateX(15px) rotate(3deg); }
+}
+
+/* Content */
+.welcome-content {
+  position: relative; z-index: 1;
+  max-width: 420px; width: 90%;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* Staggered animation */
+.animate-in {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: welcomeSlideIn 0.7s ease forwards;
+  animation-delay: calc(var(--delay) * 0.18s + 0.1s);
+}
+@keyframes welcomeSlideIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero */
+.welcome-hero { margin-bottom: var(--space-lg); }
+.welcome-logo-icon {
+  font-size: 4.5rem;
+  display: inline-block;
+  animation: pulse-grow 2s infinite ease-in-out;
+  filter: drop-shadow(0 4px 20px rgba(255,255,255,0.2));
+}
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--white);
+  margin: var(--space-sm) 0 var(--space-xs);
+  letter-spacing: -0.5px;
+}
+.welcome-ai {
+  color: var(--gold-400);
+  margin-left: 2px;
+}
+.welcome-tagline {
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.3px;
+}
+
+/* Description */
+.welcome-description {
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+  max-width: 360px;
+  margin-left: auto; margin-right: auto;
+}
+
+/* Feature cards */
+.welcome-features {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+.welcome-feature-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-sm) var(--space-md);
+  transition: all var(--transition-normal);
+}
+.welcome-feature-card:hover {
+  background: rgba(255,255,255,0.18);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+.welcome-feature-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+.welcome-feature-card h3 {
+  font-family: var(--font-display);
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.welcome-feature-card p {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.45;
+}
+
+/* CTA Button */
+.welcome-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 44px;
+  background: var(--white);
+  color: var(--green-800);
+  font-family: var(--font-display);
+  font-size: 1.1rem; font-weight: 700;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 40px rgba(255,255,255,0.1);
+  transition: all var(--transition-normal);
+  margin-bottom: var(--space-lg);
+}
+.welcome-cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 35px rgba(0,0,0,0.2), 0 0 60px rgba(255,255,255,0.15);
+  background: var(--gold-300);
+  color: var(--green-900);
+}
+.welcome-cta:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Footer */
+.welcome-footer {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.5px;
+}
+
+/* Small screen adjustments */
+@media (max-width: 360px) {
+  .welcome-title { font-size: 2.2rem; }
+  .welcome-features { grid-template-columns: 1fr; gap: var(--space-sm); }
+  .welcome-feature-card { padding: var(--space-md); display: flex; align-items: center; gap: var(--space-md); text-align: left; }
+  .welcome-feature-icon { font-size: 1.8rem; margin-bottom: 0; }
 }
