@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CropGuard AI — Smart Crop Disease Detection for Nigerian Farmers</title>
+    <meta name="description" content="AI-powered crop disease detection for Nigerian farmers. Identify diseases, get cures in your local language.">
+    <meta name="theme-color" content="#2D6A4F">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Splash Loader -->
+    <div id="splash-loader" class="splash-loader">
+        <div class="splash-content">
+            <div class="splash-icon">🌱</div>
+            <h1>CropGuard AI</h1>
+            <p>Loading your farm assistant...</p>
+            <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- App Shell -->
+    <div id="app" class="app" style="display:none;">
+        <!-- Header / Navbar -->
+        <header class="header" id="header">
+            <div class="header-left">
+                <span class="logo-icon">🌱</span>
+                <h1 class="logo-text">CropGuard<span class="logo-ai">AI</span></h1>
+            </div>
+            <div class="header-right">
+                <div class="lang-switcher" id="langSwitcher">
+                    <button class="lang-btn" id="langBtn" aria-label="Change language">
+                        <span class="lang-flag">🇬🇧</span>
+                        <span class="lang-label" id="langLabel">EN</span>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-option active" data-lang="en" data-flag="🇬🇧"><span>🇬🇧</span> English</button>
+                        <button class="lang-option" data-lang="yo" data-flag="🇳🇬"><span>🇳🇬</span> Yorùbá</button>
+                        <button class="lang-option" data-lang="ig" data-flag="🇳🇬"><span>🇳🇬</span> Igbo</button>
+                        <button class="lang-option" data-lang="ha" data-flag="🇳🇬"><span>🇳🇬</span> Hausa</button>
+                        <button class="lang-option" data-lang="pcm" data-flag="🇳🇬"><span>🇳🇬</span> Pidgin</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Offline Banner -->
+        <div class="offline-banner" id="offlineBanner" style="display:none;">
+            <span>📡</span>
+            <span data-i18n="offline_message">You are offline. Some features may be limited.</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- ============ PAGE: DASHBOARD ============ -->
+            <section class="page active" id="page-dashboard">
+                <!-- Hero Banner -->
+                <div class="hero">
+                    <div class="hero-bg">
+                        <div class="hero-particle p1">🌿</div>
+                        <div class="hero-particle p2">🌾</div>
+                        <div class="hero-particle p3">🍃</div>
+                        <div class="hero-particle p4">🌱</div>
+                    </div>
+                    <div class="hero-content">
+                        <h2 class="hero-title" data-i18n="hero_title">Protect Your Crops with AI</h2>
+                        <p class="hero-subtitle" data-i18n="hero_subtitle">Snap a photo. Get instant diagnosis. Save your harvest.</p>
+                        <button class="btn btn-primary btn-lg hero-cta" onclick="navigateTo('scan')" id="scanCTA">
+                            <span class="btn-icon">📸</span>
+                            <span data-i18n="scan_now">Scan Your Crop</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feature Cards Row -->
+                <div class="features-row">
+                    <div class="feature-card" onclick="navigateTo('scan')">
+                        <div class="feature-card-top">
+                            <span class="feature-icon">🔬</span>
+                        </div>
+                        <div class="feature-card-body">
+                            <h4>AI Pest & Disease Identification</h4>
+                            <p>Upload photos of crops to identify pests and diseases with AI technology.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" onclick="loadWeatherAlerts()">
+                        <div class="feature-card-top">
+                            <span class="feature-icon">🌦️</span>
+                        </div>
+                        <div class="feature-card-body">
+                            <h4>Weather-Based Crop Recommendations</h4>
+                            <p>Receive personalized crop suggestions based on local weather conditions.</p>
+                        </div>
+                    </div>
+                    <div class="feature-card" onclick="navigateTo('community')">
+                        <div class="feature-card-top">
+                            <span class="feature-icon">👥</span>
+                        </div>
+                        <div class="feature-card-body">
+                            <h4>Community & Expert Support</h4>
+                            <p>Connect with extension officers and fellow farmers for expert advice.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <span class="stat-icon">🌾</span>
+                        <span class="stat-number">8</span>
+                        <span class="stat-label" data-i18n="crops_supported">Crops Supported</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">🦠</span>
+                        <span class="stat-number">30+</span>
+                        <span class="stat-label" data-i18n="diseases_detectable">Diseases Detectable</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">🗣️</span>
+                        <span class="stat-number">5</span>
+                        <span class="stat-label" data-i18n="languages_supported">Languages</span>
+                    </div>
+                </div>
+
+                <!-- Weather-Based Crop Recommendations Section -->
+                <div class="section-block light-bg">
+                    <h3 class="section-title">
+                        <span data-i18n="weather_alerts">Weather-Based Crop Recommendations</span>
+                        <span class="section-title-underline"></span>
+                    </h3>
+                    <p class="section-desc">Ask questions about farming practices, crops, or any agricultural issues</p>
+                    <div class="weather-card-container" id="weatherWidget">
+                        <div class="section-header-bar">
+                            <select class="state-select" id="stateSelect" onchange="loadWeatherAlerts()">
+                                <option value="lagos">Lagos</option>
+                                <option value="oyo">Oyo</option>
+                                <option value="kano">Kano</option>
+                                <option value="kaduna">Kaduna</option>
+                                <option value="ogun">Ogun</option>
+                                <option value="enugu">Enugu</option>
+                                <option value="anambra">Anambra</option>
+                                <option value="rivers">Rivers</option>
+                                <option value="benue">Benue</option>
+                                <option value="plateau">Plateau</option>
+                            </select>
+                        </div>
+                        <div id="weatherContent" class="weather-content">
+                            <div class="skeleton-loader"><div class="skeleton-line w80"></div><div class="skeleton-line w60"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disease Library Section -->
+                <div class="section-block">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            <span data-i18n="disease_library">Disease Library</span>
+                            <span class="section-title-underline"></span>
+                        </h3>
+                        <button class="btn btn-ghost btn-sm" onclick="navigateTo('library')" data-i18n="view_all">View All →</button>
+                    </div>
+                    <div class="crop-pills" id="cropPills">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div id="diseasePreview" class="disease-preview">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Community Section -->
+                <div class="section-block">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            <span data-i18n="community">Community</span>
+                            <span class="section-title-underline"></span>
+                        </h3>
+                        <button class="btn btn-ghost btn-sm" onclick="navigateTo('community')" data-i18n="view_all">View All →</button>
+                    </div>
+                    <div id="communityPreview" class="community-preview">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ PAGE: SCAN ============ -->
+            <section class="page" id="page-scan">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
+                    <h2 data-i18n="scan_crop">Scan Your Crop</h2>
+                </div>
+                <div class="scan-container">
+                    <div class="scan-step" id="scanStep1">
+                        <h3 data-i18n="select_crop">1. Select Your Crop</h3>
+                        <div class="crop-grid" id="cropGrid"><!-- Filled by JS --></div>
+                    </div>
+                    <div class="scan-step hidden" id="scanStep2">
+                        <h3 data-i18n="capture_image">2. Take or Upload Photo</h3>
+                        <div class="upload-zone" id="uploadZone">
+                            <div class="upload-placeholder" id="uploadPlaceholder">
+                                <div class="upload-icon">📸</div>
+                                <p data-i18n="upload_or_capture">Tap to take a photo or upload from gallery</p>
+                                <div class="upload-actions">
+                                    <label class="btn btn-primary" for="cameraInput"><span>📷</span> <span data-i18n="camera">Camera</span></label>
+                                    <label class="btn btn-secondary" for="fileInput"><span>📁</span> <span data-i18n="gallery">Gallery</span></label>
+                                </div>
+                                <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+                                <input type="file" id="fileInput" accept="image/*" hidden>
+                            </div>
+                            <div class="upload-preview hidden" id="uploadPreview">
+                                <img id="previewImage" src="" alt="Crop preview">
+                                <button class="btn btn-ghost btn-sm" onclick="clearImage()" data-i18n="retake">🔄 Retake</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-lg btn-full" id="analyzeBtn" onclick="analyzeCrop()" disabled>
+                            <span class="btn-icon">🔍</span>
+                            <span data-i18n="analyze">Analyze Crop</span>
+                        </button>
+                    </div>
+                    <div class="scan-step hidden" id="scanAnalyzing">
+                        <div class="analyzing-animation"><div class="analyzing-ring"></div><div class="analyzing-icon">🌿</div></div>
+                        <h3 data-i18n="analyzing">Analyzing your crop...</h3>
+                        <p class="text-muted" data-i18n="analyzing_desc">Our AI is examining the image for diseases, pests, and nutrient issues.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ PAGE: RESULTS ============ -->
+            <section class="page" id="page-results">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('scan')">←</button>
+                    <h2 data-i18n="diagnosis_results">Diagnosis Results</h2>
+                    <button class="btn btn-ghost btn-sm voice-btn" onclick="speakResults()" title="Read aloud">🔊</button>
+                </div>
+                <div id="resultsContent"><!-- Filled by JS --></div>
+            </section>
+
+            <!-- ============ PAGE: LIBRARY ============ -->
+            <section class="page" id="page-library">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
+                    <h2 data-i18n="disease_library">Disease Library</h2>
+                </div>
+                <div class="library-filters">
+                    <div class="crop-pills" id="libraryPills"><!-- Filled by JS --></div>
+                </div>
+                <div id="libraryContent"><!-- Filled by JS --></div>
+            </section>
+
+            <!-- ============ PAGE: COMMUNITY ============ -->
+            <section class="page" id="page-community">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('dashboard')">←</button>
+                    <h2 data-i18n="community">Community</h2>
+                </div>
+                <div class="community-container">
+                    <button class="btn btn-primary btn-full" onclick="showNewPostModal()" style="margin-bottom:1rem">
+                        <span>✍️</span> <span data-i18n="ask_question">Ask a Question</span>
+                    </button>
+                    <div id="communityPosts"><!-- Filled by JS --></div>
+                </div>
+            </section>
+
+            <!-- ============ PAGE: DISEASE DETAIL ============ -->
+            <section class="page" id="page-disease-detail">
+                <div class="page-header">
+                    <button class="back-btn" onclick="goBack()">←</button>
+                    <h2 id="diseaseDetailTitle">Disease Details</h2>
+                    <button class="btn btn-ghost btn-sm voice-btn" onclick="speakDiseaseDetails()" title="Read aloud">🔊</button>
+                </div>
+                <div id="diseaseDetailContent"><!-- Filled by JS --></div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav" id="bottomNav">
+            <button class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label" data-i18n="home">Home</span>
+            </button>
+            <button class="nav-item" data-page="scan" onclick="navigateTo('scan')">
+                <span class="nav-icon nav-scan-icon">📸</span>
+                <span class="nav-label" data-i18n="scan">Scan</span>
+            </button>
+            <button class="nav-item" data-page="library" onclick="navigateTo('library')">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label" data-i18n="library">Library</span>
+            </button>
+            <button class="nav-item" data-page="community" onclick="navigateTo('community')">
+                <span class="nav-icon">👥</span>
+                <span class="nav-label" data-i18n="community_short">Forum</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- New Post Modal -->
+    <div class="modal-overlay" id="newPostModal" style="display:none">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-i18n="ask_community">Ask the Community</h3>
+                <button class="modal-close" onclick="closeModal('newPostModal')">×</button>
+            </div>
+            <form onsubmit="submitPost(event)">
+                <input type="text" class="form-input" id="postTitle" placeholder="What's the problem?" required>
+                <textarea class="form-input form-textarea" id="postContent" placeholder="Describe what you're seeing on your crops..." required></textarea>
+                <select class="form-input" id="postCrop">
+                    <option value="general">General</option>
+                    <option value="rice">Rice</option>
+                    <option value="maize">Maize</option>
+                    <option value="cassava">Cassava</option>
+                    <option value="tomato">Tomato</option>
+                    <option value="yam">Yam</option>
+                    <option value="pepper">Pepper</option>
+                    <option value="cowpea">Cowpea</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-full">Post Question</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
